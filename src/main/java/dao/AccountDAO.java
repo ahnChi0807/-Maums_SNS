@@ -12,11 +12,10 @@ import dto.AccountDTO;
 public class AccountDAO {
 	
 	// 로그인을 위해 DB에 접근하는 로직
-	public boolean accountLogin(String email, String password) {
-		boolean isLogin = false;
+	public AccountDTO accountLogin(String email, String password) {
 		Connection conn = getConnection();
 		PreparedStatement pstmt = null;
-		AccountDTO accountDto = new AccountDTO();
+		AccountDTO accountDto = null;
 		ResultSet rs = null;
 
 		try {
@@ -30,7 +29,9 @@ public class AccountDAO {
 				accountDto = new AccountDTO();
 				accountDto.setEmail(rs.getString("email"));
 				accountDto.setEmail(rs.getString("password"));
-				isLogin = true;
+				accountDto.setName(rs.getString("name"));
+				accountDto.setNickname(rs.getString("nickname"));
+				accountDto.setProfile_image(rs.getString("profile_image"));
 			}
 		} catch (SQLException e) {
 			//TODO
@@ -40,7 +41,7 @@ public class AccountDAO {
 			close(rs);
 			close(pstmt);
 		}
-		return isLogin;
+		return accountDto;
 	}
 
 	//회원가입을 위해 데이터베이스에 접근하는 로직

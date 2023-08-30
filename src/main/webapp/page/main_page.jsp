@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@page import="dto.AccountDTO"%>
+<%@page import="dto.*"%>
+<%@page import="java.util.List"%>
 
 <%
 	AccountDTO user = (AccountDTO) session.getAttribute("email");
     if (user == null) {
 		response.sendRedirect("/maums/page/account/login.jsp");
     }
+    List<UserFeedDTO> userFeedList = (List<UserFeedDTO>)request.getAttribute("feedlist");
 %>
 	
 <!DOCTYPE html>
@@ -89,22 +91,25 @@
 			</div>
 		</a>
 	</div>
-
 	<!-- 메인 콘텐츠 영역(피드와 팔로우추천) -->
 	<div class="main_root_content">
 		<!-- 메인화면 피드가 보여질 영역  -->
 		<div class="main_feed_area">
 			<!-- 메인화면 피드 테두리  -->
+		<%
+			for (UserFeedDTO userFeed : userFeedList) {
+		%>
 			<div class="main_feed_outline">
 				<!-- 메인 피드 상단부분 -->
 				<div class="main_feed_Top">
 					<div class="main_feed_user_profile">
 						<div class="main_feed_user_profile_image_box">
+							<!-- dto에 user Profile image 변수 추가해야함 -->
 							<img class="main_feed_user_profile_image"
-								src="${pageContext.request.contextPath}/server_images/default_profile.jpg"
-								alt="프로필">
+                                src="${pageContext.request.contextPath}/server_images/<%=user.getProfile_image()%>"
+                                alt="프로필">
 						</div>
-						<div class="main_feed_user_name">안치윤</div>
+						<div class="main_feed_user_name"><%=userFeed.getName()%></div>
 					</div>
 					<!-- 메인 피드 수정 삭제 드롭다운 메뉴-->
 					<div class="main_feed_update_menu">
@@ -114,7 +119,7 @@
 				<!-- 피드 이미지 -->
 				<div>
 					<img class="main_feed_image"
-						src="${pageContext.request.contextPath}/server_images/example.jpg"
+						src="${pageContext.request.contextPath}/images/<%=userFeed.getFeed_image()%>"
 						alt="피드이미지">
 				</div>
 				<!-- 피드 좋아요 북마크 영역 -->
@@ -134,9 +139,8 @@
 				<div class="main_feed_time">2023년 08월 26일</div>
 				<!-- 피드 글내용 -->
 				<div class="main_feed_text_content">
-					<div class="main_feed_user_name">안치윤</div>
-					<div>Marveling at the sky, I was utterly captivated by the
-						breathtaking beauty of the clouds</div>
+					<div class="main_feed_user_name"><%=userFeed.getName()%></div>
+					<div><%=userFeed.getFeed_content()%></div>
 				</div>
 				<!-- 피드 댓글 -->
 				<div class="main_feed_reply">댓글 7개 모두보기</div>
@@ -148,6 +152,9 @@
 				</form>
 
 			</div>
+		<%
+			}
+		%>
 		</div>
 
 		<!-- 메인화면 세션 유저 프로필 및 팔로우 추천 영역 -->
@@ -156,12 +163,12 @@
 			<div class="main_user_profile">
 				<div class="main_user_profile_image_box">
 					<img class="main_user_profile_image"
-						src="${pageContext.request.contextPath}/server_images/default_profile.jpg"
+						src="${pageContext.request.contextPath}/server_images/<%=user.getProfile_image()%>"
 						alt="프로필">
 				</div>
 				<div class="main_user_nick_name_area">
-					<div class="main_user_name">안치윤</div>
-					<div class="main_user_nickname">ahnchi0807</div>
+					<div class="main_user_name"><%=user.getName()%></div>
+					<div class="main_user_nickname"><%=user.getNickname()%></div>
 				</div>
 			</div>
 			<!-- 메인 화면의 팔로우 추천 영역 -->
@@ -174,12 +181,12 @@
 				<div class="main_user_profile">
 					<div class="main_follow_recommend_profile_image_box">
 						<img class="main_user_profile_image"
-							src="${pageContext.request.contextPath}/server_images/default_profile.jpg"
+							src="${pageContext.request.contextPath}/server_images/<%=user.getProfile_image()%>"
 							alt="프로필">
 					</div>
 					<div class="main_user_nick_name_area">
-						<div class="main_follow_recommend_user_name">안치윤</div>
-						<div class="main_follow_recommend_user_nickname">ahnchi0807</div>
+						<div class="main_follow_recommend_user_name"><%=user.getName()%></div>
+						<div class="main_follow_recommend_user_nickname"><%=user.getNickname()%></div>
 					</div>
 				</div>
 				<!-- 메인 화면 팔로우 버튼 -->			

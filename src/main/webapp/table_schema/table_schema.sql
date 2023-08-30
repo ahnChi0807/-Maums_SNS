@@ -30,10 +30,12 @@ nocycle nocache;
 create sequence seq_feed_num increment by 1 start with 1
 nocycle nocache;
 
+insert into feeds values (seq_feed_num.NEXTVAL, 'cdf4133@naver.com', '6cccc66', 'hello')
 DROP SEQUENCE seq_user_num;
 drop table users;
 drop table feeds;
 
+update feeds set feed_image = 'f367a2e4-036c-439c-9967-3ee7b74ca546.jpg' where email = 'cdf4133@naver.com'
 select * from tab;
 
 
