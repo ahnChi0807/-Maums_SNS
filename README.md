@@ -1,6 +1,8 @@
 java의 servlet과 jsp를 이용한 간단한 sns 서비스 제작
+
 회원가입
 ![KakaoTalk_20241104_211033301](https://github.com/user-attachments/assets/5f201129-fbd3-457b-8f00-4783e8f9c367)
+
 게시글 확인(로그인 전)
 ![KakaoTalk_20241104_211033301_02](https://github.com/user-attachments/assets/88a7c203-26e1-4bce-9adb-1fc478eea378)
 
